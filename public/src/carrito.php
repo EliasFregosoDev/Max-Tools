@@ -214,7 +214,7 @@ include "header.php";
             window.open(url, '_blank');
             saveCart([]);
             renderCart();
-        }, 500);
+        }, 1000);
     }
 });
 
