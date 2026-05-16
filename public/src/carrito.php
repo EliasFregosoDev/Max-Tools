@@ -183,7 +183,7 @@ include "header.php";
                 data_total: total, 
                 data_descripcion: address, 
                 id_articulo: 1,
-                data_cart: JSON.stringify(cart)  // <-- SOLO AGREGAR ESTA LÍNEA
+                data_cart: JSON.stringify(cart)
             },
     success: function(res){
         // Extraer el ID del pedido de la respuesta
