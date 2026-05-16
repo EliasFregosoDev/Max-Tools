@@ -91,7 +91,7 @@ h1,h2,h3{
 }
 
 .alinear-derecha{
-    margin-top: 1.5rem;
+    justify-content: flex-end;
 }
 
 .flex{
@@ -342,9 +342,9 @@ footer p{
         font-size: 1.6rem;
     }
 
-    .alinear-derecha .boton {
+    /* .alinear-derecha .boton {
         width: 90%;
-    }
+    } */
 
     .sombra {
         padding: 1.5rem;
