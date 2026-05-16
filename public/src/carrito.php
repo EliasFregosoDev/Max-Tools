@@ -205,13 +205,16 @@ include "header.php";
         const msg = `*RECIBO DE PEDIDO - MaxTools* \n *Número de pedido:* #${pedido_id}\n *Fecha:* ${new Date().toLocaleString()}\n──────────────────────\n${lines}──────────────────────\n *Total: $${total} MXN*\n *Dirección de entrega:*\n${address}\n──────────────────────\n *Pedido registrado exitosamente*\n¡Gracias por tu compra! `;
         
         const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-        window.open(url, '_blank');
         
-        // Vaciar carrito después de comprar
-        saveCart([]);
-        renderCart();
+        // Alert primero
+        alert(`¡Pedido #${pedido_id} registrado! Serás redirigido a WhatsApp.`);
         
-        alert(` ¡Pedido #${pedido_id} registrado! Serás redirigido a WhatsApp.`);
+        // Redirección con delay
+        setTimeout(() => {
+            window.open(url, '_blank');
+            saveCart([]);
+            renderCart();
+        }, 500);
     }
 });
 
