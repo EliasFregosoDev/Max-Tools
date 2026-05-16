@@ -1,36 +1,52 @@
 <?php
-// Database configuration
-define('DB_HOST', 'mysql');
-define('DB_USER', 'adminmysqldocker');
-define('DB_PASS', 'password_enviroment');
-define('DB_NAME', 'my_project');
+/**
+ * Configuración de conexión a PostgreSQL
+ * Usa la variable de entorno DATABASE_URL de Render
+ */
 
-
-$link = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-
-
-if (!$link) {
-   die("Connection failed: " . mysqli_connect_error());
-}
-
-
-// Create database connection
 function getDBConnection() {
+    $database_url = getenv('DATABASE_URL');
+    
+    if (!$database_url) {
+        throw new Exception("DATABASE_URL no configurada");
+    }
+    
+    // Parse la URL de conexión
+    $url = parse_url($database_url);
+    
+    $host = $url['host'] ?? 'localhost';
+    $port = $url['port'] ?? 5432;
+    $db = ltrim($url['path'] ?? '', '/');
+    $user = $url['user'] ?? '';
+    $pass = $url['pass'] ?? '';
+    
     try {
-        $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-
-        if ($conn->connect_error) {
-            throw new Exception("Connection failed: " . $conn->connect_error);
-        }
-
-        $conn->set_charset("utf8mb4");
-        return $conn;
-    } catch (Exception $e) {
-        die("Database connection error: " . $e->getMessage());
+        // Conectar a PostgreSQL con PDO
+        $dsn = "pgsql:host=$host;port=$port;dbname=$db;sslmode=require";
+        
+        $pdo = new PDO(
+            $dsn,
+            $user,
+            $pass,
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            ]
+        );
+        
+        return $pdo;
+    } catch (PDOException $e) {
+        throw new Exception("Error de conexión a la BD: " . $e->getMessage());
     }
 }
 
-
-
+// Probar la conexión
+try {
+    $test_conn = getDBConnection();
+    // Opcional: Descomentar para debug
+    // echo "Conexión exitosa a PostgreSQL";
+} catch (Exception $e) {
+    // error_log($e->getMessage());
+}
 
 ?>
