@@ -82,7 +82,7 @@ h1,h2,h3{
 
 /*Utilidades*/
 .w-sm-100{
-    width: auto;
+    width: 100%;
 }
 
 .alinear-derecha{
