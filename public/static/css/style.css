@@ -48,6 +48,11 @@ body{
     width: auto;
 }
 
+.alinear-derecha .w-sm-100 {
+    width: 100%;
+    margin: 0 auto;
+}
+
 .boton:hover{
     cursor: pointer;
 }
