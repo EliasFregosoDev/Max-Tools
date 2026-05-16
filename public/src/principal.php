@@ -123,7 +123,7 @@ include "header.php";
                             </div>
                         </div>
                         <div class="alinear-derecha flex">
-                            <input class="boton w-sm-100" type="submit" value="Enviar">
+                            <input class="boton" type="submit" value="Enviar">
                         </div>
                     </fieldset>
                 </form>
