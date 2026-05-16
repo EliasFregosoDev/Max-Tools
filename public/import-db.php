@@ -1,7 +1,7 @@
 <?php
 /**
  * Script de importación automática de tablas SQL
- * Accede a: https://tu-sitio.onrender.com/import-db.php
+ * Accede a: https://tu-sitio.onrender.com/public/import-db.php
  * Solo funciona la primera vez (verifica si las tablas ya existen)
  */
 
@@ -21,9 +21,9 @@ try {
     $db = ltrim($url['path'], '/');
     $port = $url['port'] ?? 5432;
     
-    // Conectar a PostgreSQL
+    // Conectar a PostgreSQL CON SSL
     $pdo = new PDO(
-        "pgsql:host=$host;port=$port;dbname=$db",
+        "pgsql:host=$host;port=$port;dbname=$db;sslmode=require",
         $user,
         $pass,
         [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
@@ -125,5 +125,8 @@ try {
     echo "<h2 style='color: red;'>❌ Error de conexión:</h2>";
     echo "<p>" . $e->getMessage() . "</p>";
     echo "<p>Verifica que DATABASE_URL esté configurada en Render</p>";
+    echo "<hr>";
+    echo "<p><strong>DATABASE_URL actual:</strong></p>";
+    echo "<pre>" . (getenv('DATABASE_URL') ? substr(getenv('DATABASE_URL'), 0, 50) . "..." : "NO CONFIGURADA") . "</pre>";
 }
 ?>
