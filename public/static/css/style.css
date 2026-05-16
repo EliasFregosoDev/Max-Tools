@@ -342,9 +342,13 @@ footer p{
         font-size: 1.6rem;
     }
 
-    /* .alinear-derecha .boton {
+    .alinear-derecha .boton {
         width: 90%;
-    } */
+    }
+
+    .alinear-derecha {
+        justify-content: center;
+    }
 
     .sombra {
         padding: 1.5rem;
